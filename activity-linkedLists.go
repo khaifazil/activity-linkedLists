@@ -77,14 +77,18 @@ func (p *linkedList) addAtPos(index int, item string) error {
 	// 	currentNode := currentNode.next //what next?
 	// }
 
+	currentNode := p.head
+	// var itemToPush string
 	if index == 1 { //adding to first postition
 		p.head.item = item
+		for i := 1; i <= p.size-1; i++ {
+			itemToPush := currentNode.next.item
+			currentNode.next.item = currentNode.item
+			currentNode = currentNode.next
+			currentNode.item = itemToPush
+		}
 	} else { // adding to other positions
-		currentNode := p.head
 		for i := 1; i <= index-1; i++ {
-			if i == index-1 {
-				currentNode.next.item = item
-			}
 			currentNode = currentNode.next
 		}
 		currentNode.item = item
@@ -106,7 +110,7 @@ func (p *linkedList) get(index int) (string, error) {
 	var item string
 
 	currentNode := p.head
-	for i:= 1; i <= index ; i++{ // not working
+	for i := 1; i <= index; i++ { // not working
 		item = currentNode.item
 		currentNode = currentNode.next
 	}
@@ -147,10 +151,10 @@ func main() {
 	// myList.removeNode(2)
 
 	fmt.Println("\nAdding a node at position 3...")
-	myList.addAtPos(3, "Venom")
+	myList.addAtPos(1, "Venom")
 	myList.printAllNodes()
 
-	fmt.Println("\nGetting a node at position 6..")
-	toPrint, _ := myList.get(6)
-	fmt.Println(toPrint)
+	// fmt.Println("\nGetting a node at position 6..")
+	// toPrint, _ := myList.get(6)
+	// fmt.Println(toPrint)
 }
