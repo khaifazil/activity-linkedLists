@@ -105,11 +105,9 @@ func (p *linkedList) get(index int) (string, error) {
 
 	var item string
 
-	for i := 1; i <= index; i++ { // not working
-		currentNode := p.head
-		if i == index-1 {
-			item = currentNode.item
-		}
+	currentNode := p.head
+	for i:= 1; i <= index ; i++{ // not working
+		item = currentNode.item
 		currentNode = currentNode.next
 	}
 
@@ -152,6 +150,7 @@ func main() {
 	myList.addAtPos(3, "Venom")
 	myList.printAllNodes()
 
-	fmt.Println("\nGetting a node at position 7..")
-	fmt.Println(myList.get(6))
+	fmt.Println("\nGetting a node at position 6..")
+	toPrint, _ := myList.get(6)
+	fmt.Println(toPrint)
 }
