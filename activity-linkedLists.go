@@ -52,7 +52,7 @@ func (p *linkedList) removeNode(index int) (string, error) {
 	} else {
 		currentNode := p.head
 		prevNode := p.head
-		for i := 1; i <= index-1; i++ {
+		for i := 1; i < index; i++ {
 			prevNode = currentNode
 			currentNode = currentNode.next
 		}
@@ -72,26 +72,23 @@ func (p *linkedList) addAtPos(index int, item string) error {
 		return errors.New("Invalid index position.")
 	}
 
-	// currentNode := p.head // pushing item back to fit item
-	// for i:= 1; i <= index-1; i++ {
-	// 	currentNode := currentNode.next //what next?
-	// }
+	newNode := &Node{
+		item: item,
+		next: nil,
+	}
 
 	currentNode := p.head
-	// var itemToPush string
-	if index == 1 { //adding to first postition
-		p.head.item = item
-		for i := 1; i <= p.size-1; i++ {
-			itemToPush := currentNode.next.item
-			currentNode.next.item = currentNode.item
-			currentNode = currentNode.next
-			currentNode.item = itemToPush
-		}
-	} else { // adding to other positions
-		for i := 1; i <= index-1; i++ {
+	prevNode:= p.head
+	if index == 1{
+		p.head = newNode
+		newNode.next = currentNode
+	}else{
+		for i:= 1; i <= index-1; i++ {
+			prevNode = currentNode
 			currentNode = currentNode.next
 		}
-		currentNode.item = item
+		prevNode.next = newNode
+		newNode.next = currentNode
 	}
 	p.size++
 	return nil
@@ -110,7 +107,7 @@ func (p *linkedList) get(index int) (string, error) {
 	var item string
 
 	currentNode := p.head
-	for i := 1; i <= index; i++ { // not working
+	for i := 1; i <= index; i++ {
 		item = currentNode.item
 		currentNode = currentNode.next
 	}
@@ -147,11 +144,11 @@ func main() {
 	fmt.Println("\nPrinting all the nodes in the Linked List...")
 	myList.printAllNodes()
 
-	// fmt.Println("Remove one node")
-	// myList.removeNode(2)
+	// fmt.Println("\nRemove one node")
+	// myList.removeNode(3)
 
-	fmt.Println("\nAdding a node at position 3...")
-	myList.addAtPos(1, "Venom")
+	fmt.Println("\nAdding a node at position 1...")
+	myList.addAtPos(8, "Venom")
 	myList.printAllNodes()
 
 	// fmt.Println("\nGetting a node at position 6..")
